@@ -6,7 +6,13 @@
     background-color: bisque;
 }
 
+h1 {
+    font-size: 2.5rem;
+    letter-spacing: 1.5ch;
+}
+
 .allContent {
+    margin-top: 4rem;
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -14,10 +20,38 @@
 }
 
 .wrapper {
+    margin-top: 6rem;
     display: flex;
 }
 
 .right {
     display: flex;
     flex-direction: column;
+    justify-content: space-around;
+    margin-left: 4rem;
+}
+.left {
+    margin-right: 4rem;
+}
+
+h2 {
+    font-size: 2rem;
+    letter-spacing: 1.5ch;
+    margin-top: 3rem;
+}
+
+#new_game {
+    background-color: rgb(122, 17, 47);
+    color: white;
+    width: 10rem;
+    height: 3rem;
+    letter-spacing: 0.5ch;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+}
+#new_game:hover {
+    background-color: rgb(201, 62, 102);
 }
