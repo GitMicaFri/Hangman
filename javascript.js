@@ -1,58 +1,38 @@
-/* let wordList = ['Krona', 'Bin', 'Vin', 'Bil', 'Vinter'];
+ 
 
-// math floor avrundar talet neråt
-// math random genererar ett slumpmässigt tal mellan 0-1 (ord, i detta fall), men eftersom vi tar * wordList.length så kommer det bli gånger ordets längd, därmed får vi en siffra mellan 0 till 4, som då är indexpositioneringen
-let randomWord = wordList[Math.floor(Math.random() * wordList.length)];
+// vi skapar en lista med ord. 
+let words = ['Bil', 'Vin', 'Banan', 'Cykel', 'Varm', 'Ko', 'Tal', 'Visa', 'Hosta', 'Kola', 'Burk'];
 
-let rightGuesses = [];
-let wrongGuesses = []; */
+// vi skapar en funktion för att få fram ett slumpmässigt ord
 
-// vi skapar en funktion
-// det första vi gör är att splitta ordet till separata siffror
-// sedan loopar vi igenom de siffrorna 
-
-/* function theHangman() { 
-
-    // vi skapar en ny variabel, där vi tar randomordet som givits oss tidigare (se ovan), och gör sedan en split på denna nya variabel. detta gör så att randomWord delas upp i olika tecken, som får varsin indexnr
-    let splittedWord = randomWord.split(''); 
-
-    // här initierar vi en loop, loopen börjar på index 0 och fortsätter fram tills ordets längd, detta innebär att den går igenom varje bokstav var för sig 
-    for (let i = 0; i < splittedWord.length; i++) { 
-
-        // för att få fram specifika bokstäver så skapar vi variabeln letter, där vi söker igenom splitteWord alla olika indexpositionering genom loopen. Så varje gång den loopar så byter den indexpositionering i splitteWord
-        let letter = splittedWord[i]; 
-
-        // här börjar vi med våra villkor... så OM användarens gissning, dvs användarens bokstav, inkluderar letter, variabeln som vi ju deklarerade ovan som söker igenom varje bokstav i ordet 
-        if (userGuess.includes(letter)) { 
-
-        }
+    function chooseWord() {
+    return words[Math.floor(Math.random() * words.length)];
     }
-} */
 
-let wordList = ['Krona', 'Bin', 'Vin', 'Bil', 'Vinter'];
+     randomWord = words[Math.floor(Math.random() * words.length)]; 
 
-let randomWord = wordList[Math.floor(Math.random() * wordList.length)];
+    function makeGuess(word, guessedLetters) {
 
-let rightGuesses = [];
-let wrongGuesses = []; 
-let userGuess = 'i';
+        // vi skapar displayWord, variabeln som kommer att visa resultatet sen, och gör den tom
+          let displayWord = ''; 
+        
 
-function theHangman() {
-    let splittedWord = randomWord.split(''); 
-
-    for (let i = 0; i < splittedWord.length; i++) { 
-        let letter = splittedWord[i]; 
-        if (userGuess.includes(letter)) { 
-            splittedWord += letter + ' ';
-    }   else {
-        splittedWord += '_';
+            for (let letter of word) {  // Loopar igenom varje bokstav i det ord som ska gissas
+                // word, är i detta fallet det slumpmässiga ordet, där rätt bokstav ska finnas. 
+                // letter representerar varje bokstav i ordet, vilket ger oss möjligheten att gå igenom en bokstav i taget
+            
+                if (guessedLetters.includes(letter)) {
+                    displayWord += letter + ' '; // här vill vi ju visa delar av ordet, men vi lägger också till den gissade bokstaven, om den inkluderas i ordet 
+                } else {
+                    displayWord += '_ '; // eftersom personen gissat fel, så kommer inte letter utan, utan bara blankt
+                }
+            }
+            return displayWord;
         }
-    }
-    console.log(splittedWord);
-}
 
-theHangman();
-
+     randomWord = chooseWord(); // Väljer ett slumpmässigt ord
+console.log(randomWord); // visa vad det slumpmässiga ordet är 
+console.log(makeGuess(randomWord, 'e')); // Testar makeGuess med det slumpmässigt valda ordet, randomWord
 
 
 
