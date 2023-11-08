@@ -1,4 +1,4 @@
- 
+
 
 // vi skapar en lista med ord. 
 let words = ['Bil', 'Vin', 'Banan', 'Cykel', 'Varm', 'Ko', 'Tal', 'Visa', 'Hosta', 'Kola', 'Burk'];
@@ -33,6 +33,23 @@ let words = ['Bil', 'Vin', 'Banan', 'Cykel', 'Varm', 'Ko', 'Tal', 'Visa', 'Hosta
      randomWord = chooseWord(); // Väljer ett slumpmässigt ord
 console.log(randomWord); // visa vad det slumpmässiga ordet är 
 console.log(makeGuess(randomWord, 'e')); // Testar makeGuess med det slumpmässigt valda ordet, randomWord
+
+ ////////////// Ny kod////////////////
+ // OBS nedan funkar inte 😒
+let inputLetter = document.getElementById('#inputLetter').addEventListener('enter', makeGuess); // Hämtar inputfältet med id och sparar i en variabel.
+
+
+let  rightLetter = [];
+let wrongLetter = [];
+
+//Alice skriver:
+//En bra plats att börja kan vara att skapa en eventlyssnare för inputfältet. Denna eventlyssnare skulle kunna triggas när användaren skriver in en bokstav och trycker på enter (eller någon annan händelse du föredrar). 
+
+//När eventet triggas, kan du ta det värde som användaren skrev in, lägga till det i din guessedLetters-array och sedan köra makeGuess-funktionen igen. 
+
+//För att dela upp problemet lite, kan du börja med att skapa eventlyssnaren. Hur skulle du göra det? 🤔
+
+
 
 
 
