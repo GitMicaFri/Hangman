@@ -1,0 +1,12 @@
+body {
+    background-color: bisque;
+}
+
+.all_content {
+    display: flex;
+    justify-content: center;
+}
+
+.buttons {
+    width: 6rem;
+}
