@@ -14,16 +14,10 @@
                 <img src="./Assets/hangman.svg" alt="hangman">
             </div>
             <div class="right">
-                <button id="new_game">New Game</button>
-
-                <p id="word_to_guess">Här är tomma linjer i samma antal 
-                    som bokstäver i ordet som ska gissas på </p>
-                    
-            
-                <p id="guessed_letters">Här kommer använda bokstäver ligga.
-                    <br>_  _  _  _  _
-                </p>
-                <input type="text" id="inputLetter"> <!--Bytte till id pga strul-->
+                <button id="newGame">New Game</button>
+                <p id="wordContainer">Här är tomma linjer i samma antal som bokstäver i ordet som ska gissas på</p>
+                <p id="wrongGuessedLetters"></p>
+                <input maxlength="1" type="text" id="prompt">
             </div>
         </div>
         <h2>You loose!</h2>
