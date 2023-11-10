@@ -44,7 +44,7 @@ h2 {
     margin-top: 3rem;
 }
 
-#new_game {
+#newGame {
     background-color: rgb(122, 17, 47);
     color: white;
     width: 10rem;
@@ -56,6 +56,6 @@ h2 {
     border: none;
     cursor: pointer;
 }
-#new_game:hover {
+#newGame:hover {
     background-color: rgb(201, 62, 102);
 }

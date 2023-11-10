@@ -1,18 +1,19 @@
-
 let savedWord; // vilket ord används, ordet som genereras när man startar spelet 
-let guessedLetters = []; // hur många rätt, kommer att läsas upp sen
-let rightGuessedLetters = [];
-let wrongGuessedLetters = []; // hur många fel, kommer att läsas upp sen
+let guessedLetters = []; // vår array som vi pushar upp samtliga gissningar
+let wrongGuessedLetters = [];
 
-let startButton = document.getElementById('#newGame'); // hämtar start knappen
-let wordContainer = document.getElementById('word_container'); // För att få tag i p-taggarna
-let wrongGuessedLettersElement = document.getElementById('#wrongGuessedLetters'); // hämtar element för de gissade orden
+let startButton = document.getElementById('newGame'); // hämtar start knappen
+let wordContainer = document.getElementById('wordContainer'); // För att få tag i p-taggarna
+let wrongGuessedLettersElement = document.getElementById('wrongGuessedLetters'); // hämtar element för dem bokstäver som är fel
+let rightGuessesLettersElement = document.getElementById('rightGuessedLetters');
 const promptField = document.getElementById('prompt'); // här skapar vi en ny variabel där vi sedan hämtar HTML-elementet, "prompt"
+let win = document.getElementById('win');
+let loose = document.getElementById('loose');
 
 // vi skapar en funktion för att få fram ett slumpmässigt ord
 function getWordFromList() {
-    let wordList = ['Bil', 'Vin', 'Banan', 'Cykel', 'Varm', 'Ko', 'Tal', 'Visa', 'Hosta', 'Kola', 'Burk']; // gör denna lokal, då vi inte har något nytta av den utanför 
-    let randomWord = wordList[Math.floor(Math.random() * wordList.length)];
+    let wordList = ['bil', 'vin', 'banan', 'cykel', 'varm', 'ko', 'tal', 'visa', 'hosta', 'kola', 'burk']; // gör denna lokal, då vi inte har något nytta av den utanför 
+    let randomWord = wordList[Math.floor(Math.random() * wordList.length + 1)];
     return randomWord;
 }
 
@@ -22,10 +23,11 @@ function makeGuess() {
     let displayWord = ''; 
 
     for (let letter of savedWord) {  // Loopar igenom varje bokstav i det ord som ska gissas
-        // word, är i detta fallet det slumpmässiga ordet, där rätt bokstav ska finnas. 
+        // savedWord, är i detta fallet det slumpmässiga ordet, där rätt bokstav ska finnas. 
         // letter representerar varje bokstav i ordet, vilket ger oss möjligheten att gå igenom en bokstav i taget
-        if (wrongGuessedLettersElement.includes(letter)) {
-            displayWord += letter + ' '; // här vill vi ju visa delar av ordet, men vi lägger också till den gissade bokstaven, om den inkluderas i ordet 
+        if (guessedLetters.includes(letter)) {
+            displayWord += letter + ' '; // här vill vi ju visa delar av ordet, men vi lägger också till den gissade bokstaven, om den inkluderas i ordet
+            guessedLetters.push(letter)
         } else {
             displayWord += '_ '; // eftersom personen gissat fel, så kommer inte letter utan, utan bara blankt
         }
@@ -33,50 +35,50 @@ function makeGuess() {
     return displayWord.trim(); // trim() tar bort det extra mellanrummet
 }
 
+function updateUI() {
+    wordContainer.textContent = makeGuess();
 
-// här har vi funktionen som sedan uppdaterar USER INTERFACE, dvs det vi ser 
-function updateUI () {
-    wordToGuessElement.textContent = makeGuess(); // här uppdaterar vi p-taggen genom DOM-en
-    wrongGuessedLettersElement.textContent = 'Du har gissat på: ' + wrongGuessedLetters.join(' '); // och här uppdaterar vi HTML-dokumentetet genom att lägga in wrongGuessedLettersElement, som vi ju skapade högst upp som en placeholder
+    wrongGuessedLettersElement.textContent = 'Felaktiga gissningar: ' + guessedLetters.filter(letter => !savedWord.includes(letter)).join(' ');
 }
 
+// startfunktionen ligger sist, då funktionerna inuti är skapade ovanför
+// i denna startfunktion så ger vi värdet "savedWord", som högst upp i filen är en placeholder vi skapade 
+function startGame() {
+    savedWord = getWordFromList(); // här ger vi savedWord samma värde som HELA funktionen getWordFromList... savedWord, som i början var vår placeholder, är nu istället vår funktion 
+    updateUI(); // detta är en funktion som ska uppdatera siffrorna.
+}
 
-promptField.addEventListener('keyup', function(event) {  // Hämtar inputfältet med id och sparar i en variabel när användaren trycker enter (keyup).
-    if (event.key === 'Enter') {
-        let guessedLetter = event.target.value;
-        hiddenWord = makeGuess(randomWord, guessedLetter); // Om bokstaven är rätt..
-        makeGuess(randomWord, guessedLetter);
-
-        if (randomWord.includes(rightGuessedLetters)) {
-            randomWord.push(rightGuessedLetters); //..om rätt bokstav hamnar den här
-        } else {
-            wrongLetter.push(wrongGuessedLetters); // ..om fel bokstav hamnar den här
-        }
-        
+// funktionen som gissar bokstäver 
+function guessTheLetter() { 
+    if (!promptField.value) {  // ! innebär att om promptField.value generarerar tomt, dvs. tom sträng, value är värdet, dvs siffran / bokstaven, i promptfield, dvs det som användaren skriver 
+        return; // struntar den i att köra den 
     }
-});
- 
+    if (guessedLetters.includes(promptField.value)) { // om guessedLetters inkluderar det användaren har skrivit in
+        alert('Du har redan gissat på den bokstaven.');
+        promptField.value = '';
+        return;
+    } else {
+        guessedLetters.push(promptField.value); // här pushar vi in den bokstaven vi valde i prompten, dvs. promptField.value till vår array
+        promptField.value = '';
+    }
+    updateUI();
 
-/* wordToGuessElement.textContent = 'Ny text!';
-pTagRandomWord.textContent = randomWord;
-let hiddenWord = randomWord.replace(/./g, '_ '); // Ersätter bokstäverna med understsreck
-pTagRandomWord.textContent = hiddenWord;
- */
+    if(youWin()) {
+        alert('Du vann!!')
+    } else if(youLoose()) {
+        alert('Tyvärr! Du förlorade..')
+    }
+}
 
+function youWin() {
+    return savedWord.split('').every((letter) => guessedLetters.includes(letter));
+}
+function youLoose() {
+    let maxGuesses = 6;
+    guessedLetters.length >= maxGuesses;
 
-//Alice skriver:
-//En bra plats att börja kan vara att skapa en eventlyssnare för inputfältet. Denna eventlyssnare skulle kunna triggas när användaren skriver in en bokstav och trycker på enter (eller någon annan händelse du föredrar). 
+    return guessedLetters.filter(letter => !savedWord.includes(letter)).length >= maxGuesses;
+}
 
-//När eventet triggas, kan du ta det värde som användaren skrev in, lägga till det i din guessedLetters-array och sedan köra makeGuess-funktionen igen. 
-
-//För att dela upp problemet lite, kan du börja med att skapa eventlyssnaren. Hur skulle du göra det? 🤔
-
-//Först behöver du få ordet att visas i din p-tag. Har du redan skapat en referens till din p-tag i ditt JavaScript? Om inte, hur tror du att du skulle kunna göra det? 
-
-//dölja bokstäverna i ordet. Ett sätt att göra detta på är att byta ut varje bokstav i randomWord med ett understreck eller något liknande. Vet du hur du skulle kunna göra det? 
-
-//Slutligen behöver du ett sätt att ta fram rätt bokstäver när användaren gissar rätt. Detta innebär att du behöver jämföra användarens gissning med varje bokstav i randomWord. Hur tror du att du skulle kunna göra det? 🕵️‍♀️
-
-
-
-
+startButton.addEventListener('click', startGame);
+promptField.addEventListener('keyup', guessTheLetter);
