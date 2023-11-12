@@ -6,6 +6,17 @@
     background-color: bisque;
 }
 
+#hangmanImage {
+    margin-top: 2rem; /* Lägg till önskat avstånd från toppen */
+    text-align: center; /* Centrera bilden horisontellt */
+}
+
+#hangmanImage img {
+    width: 200px; /* Justera bredden efter behov */
+    height: auto; /* Säkerställ att höjden justeras proportionellt */
+}
+
+
 h1 {
     font-size: 2.5rem;
     letter-spacing: 1.5ch;
@@ -34,6 +45,8 @@ p {
     justify-content: space-around;
     margin-left: 4rem;
 }
+
+
 .left {
     margin-right: 4rem;
 }
@@ -58,4 +71,19 @@ h2 {
 }
 #newGame:hover {
     background-color: rgb(201, 62, 102);
+}
+
+#prompt {
+    width: 3rem;
+}
+
+#mainHangmanImage,
+#bara_stolpen,
+#snara_huvud,
+#snara_huvud_arm,
+#snara_huvud_arm_kropp,
+#finito {
+    position: absolute; /* Använd absolut positionering för att placera bilderna relativt till .left */
+    top: 20%; /* Justera topposition efter behov */
+    left: 20% /* Justera vänsterposition efter behov */
 }

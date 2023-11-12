@@ -1,5 +1,6 @@
 let savedWord; // vilket ord används, ordet som genereras när man startar spelet 
 let guessedLetters = []; // vår array som vi pushar upp samtliga gissningar
+let guessWrong = 0; 
 
 let startButton = document.getElementById('newGame'); // hämtar start knappen
 let wordContainer = document.getElementById('wordContainer'); // För att få tag i p-taggarna
@@ -10,7 +11,7 @@ const promptField = document.getElementById('prompt'); // här skapar vi en ny v
 // vi skapar en funktion för att få fram ett slumpmässigt ord
 function getWordFromList() {
     let wordList = ['bil', 'vin', 'banan', 'cykel', 'varm', 'ko', 'tal', 'visa', 'hosta', 'kola', 'burk']; // gör denna lokal, då vi inte har något nytta av den utanför 
-    let randomWord = wordList[Math.floor(Math.random() * wordList.length + 1)];
+    let randomWord = wordList[Math.floor(Math.random() * wordList.length)];
     return randomWord;
 }
 
@@ -24,7 +25,6 @@ function makeGuess() {
         // letter representerar varje bokstav i ordet, vilket ger oss möjligheten att gå igenom en bokstav i taget
         if (guessedLetters.includes(letter)) {
             displayWord += letter + ' '; // här vill vi ju visa delar av ordet, men vi lägger också till den gissade bokstaven, om den inkluderas i ordet
-            guessedLetters.push(letter)
         } else {
             displayWord += '_ '; // eftersom personen gissat fel, så kommer inte letter utan, utan bara blankt
         }
@@ -58,17 +58,23 @@ function guessTheLetter() {
         return;
     } else {
         guessedLetters.push(promptField.value); // här pushar vi in den bokstaven vi valde i prompten, dvs. promptField.value till vår array
+        guessWrong++; // Öka guessWrong varje gång en felaktig gissning görs
         promptField.value = ''; // resetar vårt inputfält till tom efter alert
     }
     updateUI();
+    showPictures();
 
     // if statement som kör våra vinst eller förlust funktioner och lägger till en alert med meddelande.
     if(youWin()) {
         alert('Grattis! Du vann!');
         promptField.value = '';
+        guessedLetters = [];
+        startGame();
     } else if(youLoose()) {
         alert('Tyvärr! Du förlorade..');
         promptField.value = '';
+        guessedLetters = [];
+        startGame();
     }
 }
 
@@ -87,3 +93,42 @@ function youLoose() {
 
 startButton.addEventListener('click', startGame);
 promptField.addEventListener('keyup', guessTheLetter);
+
+
+
+
+
+///////  Ny kod till bilderna /////////
+function showPictures() {
+    document.getElementById('mainHangmanImage').style.display = 'none';
+    document.getElementById('bara_stolpen').style.display = 'none';
+    document.getElementById('snara_huvud').style.display = 'none';
+    document.getElementById('snara_huvud_arm').style.display = 'none';
+    document.getElementById('snara_huvud_arm_kropp').style.display = 'none';
+    document.getElementById('finito').style.display = 'none';
+
+    let incorrectGuesses = guessedLetters.filter(letter => !savedWord.includes(letter)).length;
+    switch (incorrectGuesses) {
+        case 0:
+            document.getElementById('mainHangmanImage').style.display = 'block';
+            break;
+        case 1:
+            document.getElementById('bara_stolpen').style.display = 'block';
+            break;
+        case 2:
+            document.getElementById('snara_huvud').style.display = 'block';
+            break;
+        case 3:
+            document.getElementById('snara_huvud_arm').style.display = 'block';
+            break;
+        case 4:
+            document.getElementById('snara_huvud_arm_kropp').style.display = 'block';
+            break;
+        case 5:
+            document.getElementById('finito').style.display = 'block';
+            break;
+    }
+}
+
+startGame(); // webbläsaren kommer hoppa direkt hit och köra startgame
+showPictures(); // därefter kommer den att köra showPictures 

@@ -7,11 +7,20 @@
     <title>The Hangman</title>
 </head>
 <body>
+    <div id="mainHangmanImage"><img src="Assets/hangman.svg" alt="hangman"></div>
     <div class="allContent">
         <h1>The Hangman</h1>
         <div class="wrapper">
             <div class="left">
-                <img src="./Assets/hangman.svg" alt="hangman">
+                <div id="bara_stolpen" style="display: none;"><img src="Assets/hangmanBaraStolpen.svg" alt="Bara stolpen"></div>
+
+                <div id="snara_huvud" style="display: block;"><img src="Assets/hangmanSnaraHuvud.svg" alt="Snara och huvud"></div>
+
+                <div id="snara_huvud_arm" style="display: none;"><img src="Assets/hangmanSnaraHuvudArm.svg" alt="Snara, huvud och arm"></div>
+
+                <div id="snara_huvud_arm_kropp" style="display: none;"><img src="Assets/hangmanSnaraHuvudArmKropp.svg" alt="Snara, huvud, arm och kropp"></div>
+
+                <div id="finito" style="display: none;"><img src="Assets/hangman.svg" alt="Finito"></div>
             </div>
             <div class="right">
                 <button id="newGame">New Game</button>
