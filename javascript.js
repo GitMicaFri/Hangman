@@ -45,8 +45,6 @@ function updateUI() {
 function startGame() {
     savedWord = getWordFromList(); // här ger vi savedWord samma värde som HELA funktionen getWordFromList... savedWord, som i början var vår placeholder, är nu istället vår funktion 
     updateUI(); // detta är en funktion som ska uppdatera siffrorna.
-
-    
 }
 
 // funktionen som gissar bokstäver 
@@ -66,9 +64,11 @@ function guessTheLetter() {
 
     // if statement som kör våra vinst eller förlust funktioner och lägger till en alert med meddelande.
     if(youWin()) {
-        alert('Grattis! Du vann!')
+        alert('Grattis! Du vann!');
+        promptField.value = '';
     } else if(youLoose()) {
-        alert('Tyvärr! Du förlorade..')
+        alert('Tyvärr! Du förlorade..');
+        promptField.value = '';
     }
 }
 
