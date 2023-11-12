@@ -1,14 +1,11 @@
 let savedWord; // vilket ord används, ordet som genereras när man startar spelet 
 let guessedLetters = []; // vår array som vi pushar upp samtliga gissningar
-let wrongGuessedLetters = [];
 
 let startButton = document.getElementById('newGame'); // hämtar start knappen
 let wordContainer = document.getElementById('wordContainer'); // För att få tag i p-taggarna
 let wrongGuessedLettersElement = document.getElementById('wrongGuessedLetters'); // hämtar element för dem bokstäver som är fel
 let rightGuessesLettersElement = document.getElementById('rightGuessedLetters');
 const promptField = document.getElementById('prompt'); // här skapar vi en ny variabel där vi sedan hämtar HTML-elementet, "prompt"
-let win = document.getElementById('win');
-let loose = document.getElementById('loose');
 
 // vi skapar en funktion för att få fram ett slumpmässigt ord
 function getWordFromList() {
@@ -35,9 +32,11 @@ function makeGuess() {
     return displayWord.trim(); // trim() tar bort det extra mellanrummet
 }
 
+// här har vi funktionen som sedan uppdaterar USER INTERFACE, dvs det vi ser 
 function updateUI() {
-    wordContainer.textContent = makeGuess();
+    wordContainer.textContent = makeGuess(); // här uppdaterar vi p-taggen genom DOM-en
 
+    // Filtrer vi ut alla bokstäver som användaren gissar på men som inte stämmer överens med rätt bokstav i de slumpade ordet.
     wrongGuessedLettersElement.textContent = 'Felaktiga gissningar: ' + guessedLetters.filter(letter => !savedWord.includes(letter)).join(' ');
 }
 
@@ -55,14 +54,15 @@ function guessTheLetter() {
     }
     if (guessedLetters.includes(promptField.value)) { // om guessedLetters inkluderar det användaren har skrivit in
         alert('Du har redan gissat på den bokstaven.');
-        promptField.value = '';
+        promptField.value = ''; // resetar vårt inputfält till tom efter alert
         return;
     } else {
         guessedLetters.push(promptField.value); // här pushar vi in den bokstaven vi valde i prompten, dvs. promptField.value till vår array
-        promptField.value = '';
+        promptField.value = ''; // resetar vårt inputfält till tom efter alert
     }
     updateUI();
 
+    // if statement som kör våra vinst eller förlust funktioner och lägger till en alert med meddelande.
     if(youWin()) {
         alert('Du vann!!')
     } else if(youLoose()) {
@@ -70,10 +70,13 @@ function guessTheLetter() {
     }
 }
 
+// youWin funktionen körs när spelaren har lyckats gissa rätt på ordet innan gubben är hängd.
 function youWin() {
     return savedWord.split('').every((letter) => guessedLetters.includes(letter));
 }
+// youLoose körs om spelaren förlorar
 function youLoose() {
+    // skapar en variabel med max gissningar på 6. För att spelaren endast ska kunna gissa på en bokstav 6 gånger innan han blir hängd.
     let maxGuesses = 6;
     guessedLetters.length >= maxGuesses;
 
