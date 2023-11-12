@@ -66,7 +66,7 @@ function guessTheLetter() {
 
     // if statement som kör våra vinst eller förlust funktioner och lägger till en alert med meddelande.
     if(youWin()) {
-        alert('Du vann!!')
+        alert('Grattis! Du vann!')
     } else if(youLoose()) {
         alert('Tyvärr! Du förlorade..')
     }
