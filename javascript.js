@@ -45,6 +45,8 @@ function updateUI() {
 function startGame() {
     savedWord = getWordFromList(); // här ger vi savedWord samma värde som HELA funktionen getWordFromList... savedWord, som i början var vår placeholder, är nu istället vår funktion 
     updateUI(); // detta är en funktion som ska uppdatera siffrorna.
+
+    
 }
 
 // funktionen som gissar bokstäver 
