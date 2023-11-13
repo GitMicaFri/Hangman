@@ -44,12 +44,13 @@ p {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    margin-left: 4rem;
+    margin-left: 6rem;
+    padding: 4rem;
 }
 
 
 .left {
-    margin-right: 4rem;
+    margin-right: 12rem;
 }
 
 h2 {
@@ -69,9 +70,18 @@ h2 {
     border-radius: 6px;
     border: none;
     cursor: pointer;
+    margin-bottom: 4rem;
 }
 #newGame:hover {
     background-color: rgb(201, 62, 102);
+}
+
+#wordContainer {
+    margin-bottom: 4rem;
+}
+
+#wrongGuessedLetters {
+    margin-bottom: 4rem;
 }
 
 #prompt {
